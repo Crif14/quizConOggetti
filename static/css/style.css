@@ -1,0 +1,53 @@
+@import "regole.css";
+@import "livello.css";
+@import "sfondo.css";
+@import "domande.css";
+@import "spiegazione.css";
+
+.hide {
+    display: none;
+}
+
+.allinea {
+    display: flex;
+}
+
+.accentra {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.contenitore {
+    margin-top: 100px;
+    max-width: 1900px;
+    margin-left: 90px;
+    width: 100vw;
+    height: 100vh;
+}
+
+#colDestra {
+    background-color: #1a1a1a;
+    padding: 20px;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 30px;
+}
+
+#colCentro {
+    background-color: #222;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#colSinistra {
+    background-color: #1a1a1a;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+
+}
