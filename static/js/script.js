@@ -150,6 +150,7 @@ window.addEventListener("load", function () {
                 livello.classList.remove("hide")
                 divSpiegazione.classList.add("hide")
             } else {
+                risUtente.classList.remove("hide")
                 console.log("ciao")
                 json = quiz[currentQuestion];
                 numdomanda.innerHTML = "Domanda n." + json["ndomanda"]
@@ -161,6 +162,7 @@ window.addEventListener("load", function () {
                 risposta = true
             }
         } else {
+            risUtente.classList.add("hide")
             livello.classList.add("hide")
             divSpiegazione.classList.remove("hide")
             json["risUtente"] = sanitize(risUtente.value)
