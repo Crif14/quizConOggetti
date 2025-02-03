@@ -58,7 +58,7 @@ let quiz = [
     {
         "ndomanda": "8",
         "domanda": "In quale gioco il protagonista è un pirata?",
-        "risGiusta": "black Flag",
+        "risGiusta": "blackFlag",
         "risUtente": "",
         "linkimg": "https://th.bing.com/th/id/OIP.yTX0HYhpbZOtg60aNPvfKwHaEK?w=238&h=180&c=7&r=0&o=5&pid=1.7",
         "spiegazione": "Assassin’s Creed IV: Black Flag segue la storia di Edward Kenway, un pirata che diventa Assassino durante l'Età d'Oro della Pirateria.",
