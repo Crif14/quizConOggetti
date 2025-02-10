@@ -92,6 +92,7 @@ function calcolaPunti(json) {
     let divDomande = document.querySelector("#divDomande")
     let testoLivello = document.querySelector("#testoLivello")
     let imgLiv = document.querySelector("#imgLivello")
+    let correzione = document.querySelector("#correzione")
 
     for (let i = 0; i < 10; i++) {
         let json = quiz[i];
@@ -112,6 +113,7 @@ function calcolaPunti(json) {
         testoLivello.innerHTML = "Il tuo livello è: <br>Gran maestro"
         imgLiv.setAttribute('src', "static/image/Granmaestro.png");
     }
+    correzione.classList.remove("hide")
     punthtml.innerHTML = punteggio
     fine.classList.remove("hide")
     divDomande.classList.add("hide")
@@ -119,6 +121,15 @@ function calcolaPunti(json) {
 function capitalizeFirstLetter(string) {
     if (string.length === 0) return string;
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+function caricaCorrezione(i, json) {
+    let correctionQuestion = document.querySelector("#correctionQuestion")
+    let correctionText = document.querySelector("#correctionText")
+    let correctionImg = document.querySelector("#correctionImg")
+    correctionImg.setAttribute('src', json["linkimg"]);
+    correctionText.innerHTML = json["spiegazione"]
+    correctionQuestion.innerHTML = json["domanda"]
+
 }
 
 
@@ -133,7 +144,7 @@ window.addEventListener("load", function () {
     let imgHtml = document.querySelector("#imgRis")
     let risHtml = document.querySelector("#risGiusta")
     let spiegazione = document.querySelector("#spiegazione")
-    let risposta = true
+    let ultima = false
     let livello = document.querySelector("#livello")
     numdomanda.innerHTML = "Domanda n." + json["ndomanda"]
     domande.innerHTML = json["domanda"]
@@ -141,25 +152,38 @@ window.addEventListener("load", function () {
         e.preventDefault()
         let risUtente = document.querySelector("[name=answer]")
 
-        if (!risposta) {
+        if (!ultima) {
             currentQuestion += 1
             body.classList.remove("overlayVerde", "overlayRosso");
             divSpiegazione.classList.add("hide")
             if (currentQuestion > 9) {
+                caricaCorrezione(0, quiz[0])
                 calcolaPunti(json)
                 livello.classList.remove("hide")
                 divSpiegazione.classList.add("hide")
             } else {
-                risUtente.classList.remove("hide")
-                console.log("ciao")
-                json = quiz[currentQuestion];
-                numdomanda.innerHTML = "Domanda n." + json["ndomanda"]
-                domande.innerHTML = json["domanda"]
+                //console.log("ciao")
+                livello.classList.add("hide")
                 spiegazione.innerHTML = ""
                 imgHtml.setAttribute('src', "");
                 risHtml.innerHTML = ""
-                bottone.value = "Rispondi"
-                risposta = true
+                divSpiegazione.classList.remove("hide")
+                json["risUtente"] = sanitize(risUtente.value)
+                if (json["risUtente"] == json["risGiusta"]) {
+                    body.classList.add("overlayVerde")
+                } else {
+                    body.classList.add("overlayRosso")
+                }
+                spiegazione.innerHTML = json["spiegazione"]
+                imgHtml.setAttribute('src', json["linkimg"]);
+                risHtml.innerHTML = "La risposta giusta è:<br>" + capitalizeFirstLetter(json["risGiusta"]);
+                risUtente.value = "";
+                if (currentQuestion > 8) {
+                    ultima = true
+                }
+                json = quiz[currentQuestion];
+                numdomanda.innerHTML = "Domanda n." + json["ndomanda"]
+                domande.innerHTML = json["domanda"]
             }
         } else {
             risUtente.classList.add("hide")
@@ -174,10 +198,24 @@ window.addEventListener("load", function () {
             spiegazione.innerHTML = json["spiegazione"]
             imgHtml.setAttribute('src', json["linkimg"]);
             risHtml.innerHTML = "La risposta giusta è:<br>" + capitalizeFirstLetter(json["risGiusta"]);
-            bottone.value = "Vai avanti"
+            bottone.value = "Vai al risultato"
             risUtente.value = "";
-            risposta = false
+            ultima = false
         }
 
     })
+})
+
+let i = 0
+document.querySelector("#correctionBtn").addEventListener("click", function () {
+    if (i < 10) {
+        i += 1;
+        caricaCorrezione(i, quiz[i]);
+    }
+})
+document.querySelector("#correctionBtn1").addEventListener("click", function () {
+    if (i > 0) {
+        i -= 1;
+        caricaCorrezione(i, quiz[i]);
+    }
 })

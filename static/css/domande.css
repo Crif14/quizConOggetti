@@ -12,7 +12,8 @@
     color: white;
 }
 
-#bottone {
+#bottone,
+.bottonicorrezione {
     background-color: #e63946;
     color: white;
     border: none;
@@ -21,6 +22,7 @@
     border-radius: 5px;
 }
 
-#bottone:hover {
+#bottone:hover,
+.bottonicorrezione:hover {
     background-color: #ff4d4d;
 }
